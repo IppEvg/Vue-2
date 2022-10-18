@@ -14,9 +14,12 @@
         <button @click="sign='-'">-</button>
         <button @click="sign='*'">*</button>
         <button @click="sign='/'">/</button>
-        <button @click="sign='x^'"> x^</button>
+        <button @click="sign='x^2'"> x^2</button>
+        <button @click="sign='x^y'"> x^y</button>
         <button @click="sign='DIV'">DIV</button>
-        <button @click="doOperation">=</button>
+      </div>
+      <div>
+        <button class="btn-result" @click="doOperation">=</button>
       </div>
     </div>
   </div>
@@ -44,7 +47,7 @@ export default {
         this.result = (+this.operand1) * (+this.operand2);
       } else if (this.sign == '/') {
         this.result = (+this.operand1) / (+this.operand2);
-      } else if (this.sign == 'x^') {
+      } else if (this.sign == 'x^2') {
         if (this.operand1) {
           this.result = (+this.operand1) * (+this.operand1);
           this.operand2 = "";
@@ -56,6 +59,8 @@ export default {
         }
       } else if (this.sign == 'DIV') {
         this.result = Math.floor((+this.operand1) / (+this.operand2));
+      } else if (this.sign == 'x^y') {
+        this.result = (+this.operand1) ** (+this.operand2);
       }
 
     }
@@ -70,11 +75,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 
 .wrapper {
-  width: 320px;
+  width: 335px;
   height: 300px;
   margin: 0 auto;
   background-color: rgb(202, 206, 154);
@@ -86,7 +91,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 10px 0px 40px;
+  margin: 10px 0px 20px;
   border: 1px solid rgb(88, 55, 110);
   padding: 3px;
 }
@@ -98,15 +103,24 @@ input {
 }
 
 .result {
-  min-width: 80px;
+  min-width: 90px;
   border: 2px solid rgb(88, 55, 110);
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(220, 221, 204);
 }
 
 button {
   min-width: 35px;
+  min-height: 35px;
+  margin: 3px;
+  border-radius: 5px;
+  border: 1px solid rgb(88, 55, 110);
+}
+
+.btn-result {
+  min-width: 40%;
   min-height: 35px;
   margin: 3px;
   border-radius: 5px;
