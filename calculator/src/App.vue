@@ -9,6 +9,10 @@
         <div class="sign">=</div>
         <div class="result">{{result}}</div>
       </div>
+      <div class="checkboxes">
+        <input type="checkbox" id="checkbox" v-model="add">
+        <label for="checkbox">Auto add result to first operand</label>
+      </div>
       <div>
         <button @click="sign='+'">+</button>
         <button @click="sign='-'">-</button>
@@ -20,6 +24,22 @@
       </div>
       <div>
         <button class="btn-result" @click="doOperation">=</button>
+      </div>
+      <div class="checkboxes">
+        <input type="checkbox" id="checkboxKeys" v-model="checked">
+        <label for="checkboxKeys">Show keyboard</label>
+      </div>
+      <div class="keyboardWindow" v-show="checked">
+        <div class="keys">
+          <button v-for="item,index of keys" v-bind:key="index" @click="redactOperand">{{item}}</button>
+        </div>
+        <div><span class="spans">Change an operand: </span></div>
+        <div class="radio-place">
+          <input type="radio" id="one" value="Один" v-model="picked">
+          <label for="one">First</label>
+          <input type="radio" id="two" value="Два" v-model="picked">
+          <label for="two">Second</label>
+        </div>
       </div>
     </div>
   </div>
@@ -34,7 +54,11 @@ export default {
       operand1: "",
       operand2: "",
       sign: "+",
-      result: ""
+      result: "",
+      checked: false,
+      keys: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "DEL"],
+      picked: "",
+      add: false
     }
   },
   methods: {
@@ -62,7 +86,26 @@ export default {
       } else if (this.sign == 'x^y') {
         this.result = (+this.operand1) ** (+this.operand2);
       }
+      if (this.add) {
+        this.operand1 = this.result;
+      }
 
+    },
+    redactOperand(event) {
+      if (this.picked == "Один") {
+        if (event.target.innerText != 'DEL') {
+          this.operand1 += event.target.innerText;
+        } else {
+          this.operand1 = this.operand1.slice(0, -1);
+        }
+      } else if (this.picked == "Два") {
+        if (event.target.innerText != 'DEL') {
+          this.operand2 += event.target.innerText;
+        } else {
+          this.operand2 = this.operand2.slice(0, -1);
+        }
+
+      }
     }
   }
 }
@@ -79,8 +122,8 @@ export default {
 }
 
 .wrapper {
-  width: 335px;
-  height: 300px;
+  width: 350px;
+  height: 420px;
   margin: 0 auto;
   background-color: rgb(202, 206, 154);
   padding: 20px;
@@ -91,7 +134,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 10px 0px 20px;
+  margin: 10px 0px 5px;
   border: 1px solid rgb(88, 55, 110);
   padding: 3px;
 }
@@ -100,6 +143,7 @@ input {
   max-width: 80px;
   font-size: 15px;
   height: 20px;
+  text-align: center
 }
 
 .result {
@@ -117,12 +161,14 @@ button {
   margin: 3px;
   border-radius: 5px;
   border: 1px solid rgb(88, 55, 110);
+  transition: 100ms;
+
 }
 
 .btn-result {
   min-width: 40%;
   min-height: 35px;
-  margin: 3px;
+  margin: 8px;
   border-radius: 5px;
   border: 1px solid rgb(88, 55, 110);
 }
@@ -133,5 +179,48 @@ button:hover {
 
 .sign {
   margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px
+}
+
+.checkboxes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.spans {
+  font-size: 10px;
+  display: flex;
+}
+
+.keyboardWindow {
+  margin: 0 auto;
+  width: 70%;
+  border: 1px solid rgb(88, 55, 110);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.radio-place {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  margin-left: 5px;
+
+  input {
+    margin: 2px;
+  }
+}
+
+.big {
+  width: 100px;
 }
 </style>
