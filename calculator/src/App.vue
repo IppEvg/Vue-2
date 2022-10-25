@@ -123,7 +123,7 @@ export default {
 
 .wrapper {
   width: 350px;
-  height: 420px;
+  height: max-content;
   margin: 0 auto;
   background-color: rgb(202, 206, 154);
   padding: 20px;
@@ -143,16 +143,17 @@ input {
   max-width: 80px;
   font-size: 15px;
   height: 20px;
-  text-align: center
+  text-align: start;
 }
 
 .result {
   min-width: 90px;
   border: 2px solid rgb(88, 55, 110);
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   background-color: rgb(220, 221, 204);
+  overflow: hidden;
 }
 
 button {
@@ -218,9 +219,5 @@ button:hover {
   input {
     margin: 2px;
   }
-}
-
-.big {
-  width: 100px;
 }
 </style>
