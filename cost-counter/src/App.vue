@@ -7,9 +7,6 @@
           <button class="button" v-on:click="changeShowAdder">Add new cost +</button>
           <costList :costs="list"></costList>
           <adderCost class="windowTemple" :items="list" v-on:addItem="addNewCost" v-if="showAdder"></adderCost>
-          <div class="pagination">
-
-          </div>
         </div>
         <div class="box_right"></div>
 
@@ -40,7 +37,6 @@ export default {
     },
     changeShowAdder() {
       return this.showAdder = true;
-
     }
   },
   mounted() {
@@ -68,21 +64,18 @@ export default {
 .wrapp {
   margin: 0 auto;
   max-width: 600px;
-  height: 500px;
+  height: 400px;
   border: 2px solid #6696ccde;
   border-radius: 20px;
   background-color: #6696cc2a;
   padding: 10px;
   box-sizing: border-box;
-  // background-image: url("./assets/wallet_PNG77065.png");
   background-position: center;
   background-size: cover;
 
 }
 
-.pagination {
-  height: 40px;
-}
+
 
 .button {
   display: inline-block;
@@ -103,14 +96,28 @@ export default {
   transform: scale(1.01, 1.01);
 }
 
+.box {
+  display: flex;
+  width: inherit;
+  height: inherit;
+}
+
 .box_left {
   position: relative;
+  height: 70%;
+  width: 170%;
+}
+
+.box_right {
+  border: 1px solid black;
+  height: 70%;
+  width: 100%;
 }
 
 .windowTemple {
   background-color: #1b1609e8;
   width: 40%;
-  height: 80%;
+  height: 105px;
   padding: 10px;
   border-radius: 10px;
   position: absolute;
@@ -131,6 +138,4 @@ export default {
     margin-top: 5px;
   }
 }
-
-// #24476B синий #6696CC светло-синий #1B1609 шоколад #05040B сине-черный
 </style>
