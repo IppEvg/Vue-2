@@ -7,11 +7,11 @@
                     <div class="item_col">{{ item.data }}</div>
                     <div class="item_col"> {{ item.title }}</div>
                     <div class="item_col">{{ item.prise }}</div>
-                    <div class="item_col"> &#9776;</div>
+                    <div class="item_col menu"> &#9776;</div>
                 </div>
             </div>
             <div class="pagination">
-                <paginationList :numbs="costs" @give="showPeriodOfList"></paginationList>
+                <paginationList :numbs="costs" @pre="changeStr" @give="showPeriodOfList"></paginationList>
             </div>
         </div>
 
@@ -36,7 +36,17 @@ export default {
     },
     methods: {
         showPeriodOfList(active) {
-            this.str = active[0].textContent;
+            console.log(active);
+            console.log(active.textContent);
+            this.str = active.textContent;
+        },
+        changeStr(change) {
+            console.log(change);
+            if (this.str > 1 && change == -1) {
+                this.str = +this.str - 1;
+            } else if (change == 1 && this.str < this.costs.length / 10) {
+                this.str = +this.str + 1;
+            }
         }
     },
     computed: {
@@ -84,5 +94,9 @@ export default {
 
 .pagination {
     height: 40px;
+}
+
+.menu {
+    cursor: pointer;
 }
 </style>

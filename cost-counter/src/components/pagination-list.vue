@@ -1,10 +1,11 @@
 <template>
     <div class="box">
         <div class="pagination_section">
-            <a href="#" tupe='link'>&laquo;</a>
-            <a href="#" v-for="page, index of addPages" v-bind:key="index" class="page" @click="changeStyle">{{ page
+            <a href="#" class="arrowLeft" @click="arrowLeft" type='link'>&laquo;</a>
+            <a href="#" v-for="page, index of addPages" v-bind:key="index" class="page" @click="changeStyle">{{
+                    page
             }}</a>
-            <a href="#">&raquo;</a>
+            <a href="#" class="arrowRight" @click="arrowRight">&raquo;</a>
         </div>
     </div>
 
@@ -22,24 +23,36 @@ export default {
         }
     },
     methods: {
-
         changeStyle(event) {
-            let list = document.querySelectorAll('.page');
+            let list = Array.prototype.slice.call(document.querySelectorAll('.page'));
             list.forEach((item) => item.classList.remove('active'));
             event.target.classList.toggle('active');
-            let active = document.getElementsByClassName('active');
-
+            let active = document.querySelector('a.page.active');
             this.$emit('give', active);
-        }
+        },
+        arrowLeft() {
+            let list = Array.prototype.slice.call(document.querySelectorAll('.page'));
+            let active = document.querySelector('a.page.active');
+            if (active.previousSibling.classList != 'arrowLeft') {
+                active.classList.remove('active')
+                active.previousSibling.classList.add('active');
+            }
+            let change = -1;
+            this.$emit('pre', change);
 
+        },
+        arrowRight() {
+            let list = Array.prototype.slice.call(document.querySelectorAll('.page'));
+            let active = document.querySelector('a.page.active');
+            if (active.nextSibling.classList != 'arrowRight') {
+                active.classList.remove('active')
+                active.nextSibling.classList.add('active');
+            }
+            let change = 1;
+            this.$emit('pre', change);
+        }
     },
     computed: {
-        counterLength() {
-            if (this.pages.length <= 1) {
-                document.querySelector('.page').classList.add('active');
-            }
-            return this.pages;
-        },
         addPages() {
             let pages = this.pages;
             for (let i = 0; i * 10 < this.numbs.length; i++) {
@@ -49,9 +62,12 @@ export default {
             }
             return this.pages;
         },
+        created() {
+            return document.querySelector('a.page').classList.add('active');
+        }
     }
-
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -74,6 +90,346 @@ a {
 }
 </style>
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
