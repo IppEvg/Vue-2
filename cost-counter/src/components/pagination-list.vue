@@ -14,9 +14,6 @@
 <script>
 export default {
     name: 'paginationList',
-    props: {
-        numbs: Array
-    },
     data() {
         return {
             pages: [],
@@ -31,7 +28,6 @@ export default {
             this.$emit('give', active);
         },
         arrowLeft() {
-            let list = Array.prototype.slice.call(document.querySelectorAll('.page'));
             let active = document.querySelector('a.page.active');
             if (active.previousSibling.classList != 'arrowLeft') {
                 active.classList.remove('active')
@@ -42,7 +38,6 @@ export default {
 
         },
         arrowRight() {
-            let list = Array.prototype.slice.call(document.querySelectorAll('.page'));
             let active = document.querySelector('a.page.active');
             if (active.nextSibling.classList != 'arrowRight') {
                 active.classList.remove('active')
@@ -55,16 +50,17 @@ export default {
     computed: {
         addPages() {
             let pages = this.pages;
-            for (let i = 0; i * 10 < this.numbs.length; i++) {
+            for (let i = 0; i * 10 < this.$store.getters.getList.length; i++) {
                 if (!pages[i]) {
                     pages = pages.push(i + 1);
                 }
             }
             return this.pages;
-        },
-        created() {
-            return document.querySelector('a.page').classList.add('active');
         }
+
+    },
+    mounted() {
+        return document.querySelector('a.page').classList.add('active');
     }
 }
 
@@ -80,16 +76,87 @@ export default {
 a {
     width: 20px;
     height: 20px;
-    margin: 5px;
+    margin: 1px;
     color: #24476B;
     text-decoration: none;
+    padding: 1px 3px;
+    border: 1px solid rgba(122, 122, 122, 0.281);
+    border-radius: 5px;
 }
 
 .active {
     color: #1B1609;
+    background-color: #24486b42;
+
 }
 </style>
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

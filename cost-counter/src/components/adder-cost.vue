@@ -12,9 +12,6 @@
 <script>
 export default {
     name: 'adderCost',
-    props: {
-        items: Array
-    },
     data() {
         return {
             id: "",
@@ -26,13 +23,14 @@ export default {
 
     methods: {
         addCost() {
-            let newObj = { id: this.idComp, data: this.dataComp, title: this.title, prise: this.cost }
-            this.$emit('addItem', newObj);
-        }
+            let newObj = { id: this.idComp, data: this.dataComp, title: this.title, prise: this.cost };
+            this.$store.commit('addCost', newObj);
+            this.$store.commit('hideShowAdder', false);
+        },
     },
     computed: {
         idComp() {
-            return this.items.length + 1;
+            return this.$store.getters.getList.length + 1;
         },
         dataComp() {
             if (this.data == new Date().toLocaleDateString()) {

@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="pagination">
-                <paginationList :numbs="costs" @pre="changeStr" @give="showPeriodOfList"></paginationList>
+                <paginationList @pre="changeStr" @give="showPeriodOfList"></paginationList>
             </div>
         </div>
 
@@ -27,31 +27,24 @@ export default {
     },
     data() {
         return {
-            period: [],
             str: "1"
         }
     },
-    props: {
-        costs: Array
-    },
     methods: {
         showPeriodOfList(active) {
-            console.log(active);
-            console.log(active.textContent);
             this.str = active.textContent;
         },
         changeStr(change) {
-            console.log(change);
             if (this.str > 1 && change == -1) {
                 this.str = +this.str - 1;
-            } else if (change == 1 && this.str < this.costs.length / 10) {
+            } else if (change == 1 && this.str < this.$store.getters.getList.length / 10) {
                 this.str = +this.str + 1;
             }
         }
     },
-    computed: {
+    computed: { // 10 платежей на одну страницу
         showPeriod() {
-            return this.costs.slice(10 * (+this.str) - 10, 10 * (+this.str));
+            return this.$store.getters.getList.slice(10 * (+this.str) - 10, 10 * (+this.str));
         }
     }
 

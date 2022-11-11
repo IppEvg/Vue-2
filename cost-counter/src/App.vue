@@ -4,11 +4,16 @@
       <h2>My personal costs</h2>
       <div class="box">
         <div class="box_left">
-          <button class="button" v-on:click="changeShowAdder">Add new cost +</button>
-          <costList :costs="list"></costList>
-          <adderCost class="windowTemple" :items="list" v-on:addItem="addNewCost" v-if="showAdder"></adderCost>
+          <button class="button" @click="changeShowAdder">Add new cost +</button>
+          <costList></costList>
+          <adderCost class="windowTemple" v-if="checkShowAdder"></adderCost>
         </div>
-        <div class="box_right"></div>
+        <div class="box_right">
+          <div class="grafic"></div>
+          <div class="totalPrise">
+            <h4> Total: {{ this.$store.getters.getTotalPrise }}</h4>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -21,37 +26,26 @@ import adderCost from "./components/adder-cost.vue";
 
 export default {
   name: 'App',
-  data() {
-    return {
-      list: [],
-      showAdder: false,
-    }
-  },
   components: {
     costList, adderCost
   },
   methods: {
-    addNewCost(data) {
-      this.list = [...this.list, data];
-      this.showAdder = false;
-    },
     changeShowAdder() {
-      return this.showAdder = true;
-    }
+      return this.$store.commit('showShowAdder', true);
+    },
   },
-  mounted() {
-    setTimeout(() => {
-      this.list = [
-        { id: 1, data: '22.10.2022', title: 'food', prise: 500 },
-        { id: 2, data: '24.10.2022', title: 'transport', prise: 300 }
-      ]
-    }, 500);
+  computed: {
+    checkShowAdder() {
+      return this.$store.getters.getShowAdder;
+    }
   }
 
 }
 </script>
 
 <style lang="scss">
+$bg-color_blue: #24476B;
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -79,7 +73,7 @@ export default {
 
 .button {
   display: inline-block;
-  background-color: #24476B;
+  background-color: $bg-color_blue;
   color: white;
   border: 1px solid white;
   box-shadow: 0px 0px 10px -2px #05040B;
@@ -91,8 +85,8 @@ export default {
 
 .button:hover {
   background-color: white;
-  color: #24476B;
-  border: 1px solid #24476B;
+  color: $bg-color_blue;
+  border: 1px solid $bg-color_blue;
   transform: scale(1.01, 1.01);
 }
 
@@ -112,6 +106,10 @@ export default {
   border: 1px solid black;
   height: 70%;
   width: 100%;
+
+  h4 {
+    color: $bg-color_blue;
+  }
 }
 
 .windowTemple {
