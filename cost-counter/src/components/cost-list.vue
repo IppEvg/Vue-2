@@ -46,8 +46,11 @@ export default {
         showPeriod() {
             return this.$store.getters.getList.slice(10 * (+this.str) - 10, 10 * (+this.str));
         }
+    },
+    mounted() {
+        let active = document.querySelector('.active');
+        this.str = active.textContent;
     }
-
 }
 </script>
   

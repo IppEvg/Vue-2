@@ -14,11 +14,6 @@
 <script>
 export default {
     name: 'paginationList',
-    data() {
-        return {
-            pages: [],
-        }
-    },
     methods: {
         changeStyle(event) {
             let list = Array.prototype.slice.call(document.querySelectorAll('.page'));
@@ -49,21 +44,22 @@ export default {
     },
     computed: {
         addPages() {
-            let pages = this.pages;
-            for (let i = 0; i * 10 < this.$store.getters.getList.length; i++) {
+            let pages = this.$store.getters.getPages;
+            console.log(pages);
+            for (let i = 1; i * 10 < this.$store.getters.getList.length; i++) {
                 if (!pages[i]) {
-                    pages = pages.push(i + 1);
+                    this.$store.commit('addPages', i + 1)
                 }
             }
-            return this.pages;
+            return this.$store.getters.getPages
         }
 
     },
     mounted() {
-        return document.querySelector('a.page').classList.add('active');
+        console.log(Array.from(document.querySelectorAll('.page')));
+        return document.querySelectorAll('.page').forEach((item) => { if (item.textContent == document.querySelectorAll('.page').length) { item.classList.add('active') } });
     }
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -91,6 +87,80 @@ a {
 }
 </style>
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

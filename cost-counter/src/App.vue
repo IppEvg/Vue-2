@@ -1,47 +1,15 @@
 <template>
   <div id="app">
-    <div class="wrapp">
-      <h2>My personal costs</h2>
-      <div class="box">
-        <div class="box_left">
-          <button class="button" @click="changeShowAdder">Add new cost +</button>
-          <costList></costList>
-          <adderCost class="windowTemple" v-if="checkShowAdder"></adderCost>
-        </div>
-        <div class="box_right">
-          <div class="grafic"></div>
-          <div class="totalPrise">
-            <h4> Total: {{ this.$store.getters.getTotalPrise }}</h4>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    <nav>
+      <router-link tag="button" to="/">Home</router-link>
+      <router-link tag="button" to="/transport">+ Transport</router-link>
+      <router-link tag="button" to="/entertainment">+ Entertainment</router-link>
+      <router-link tag="button" to="/health">+ Health</router-link>
+      <router-link tag="button" to="/food">+ Food</router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
-
-<script>
-import costList from "./components/cost-list.vue";
-import adderCost from "./components/adder-cost.vue";
-
-export default {
-  name: 'App',
-  components: {
-    costList, adderCost
-  },
-  methods: {
-    changeShowAdder() {
-      return this.$store.commit('showShowAdder', true);
-    },
-  },
-  computed: {
-    checkShowAdder() {
-      return this.$store.getters.getShowAdder;
-    }
-  }
-
-}
-</script>
 
 <style lang="scss">
 $bg-color_blue: #24476B;
@@ -51,8 +19,42 @@ $bg-color_blue: #24476B;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #1B1609;
-  margin-top: 60px;
+  color: #2c3e50;
+  font-size: 12px;
+
+}
+
+nav {
+  padding: 20px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+    text-decoration: none;
+
+
+    &.router-link-exact-active {
+      color: #24476B;
+    }
+  }
+
+  button {
+    background-color: #6696cc2a;
+    border-radius: 4px;
+    border: 1px solid #6696cc2a;
+    cursor: pointer;
+    color: black;
+    margin: 0 5px;
+
+    &.router-link-exact-active {
+      background-color: #3d75b43f;
+      box-shadow: 0px 0px 3px 3px rgba(34, 60, 80, 0.2) inset;
+    }
+  }
+
+  button:hover {
+    box-shadow: 0px 0px 3px 3px rgba(34, 60, 80, 0.2) inset;
+  }
 }
 
 .wrapp {
@@ -105,7 +107,7 @@ $bg-color_blue: #24476B;
 .box_right {
   border: 1px solid black;
   height: 70%;
-  width: 100%;
+  width: 80%;
 
   h4 {
     color: $bg-color_blue;
