@@ -45,7 +45,6 @@ export default {
     computed: {
         addPages() {
             let pages = this.$store.getters.getPages;
-            console.log(pages);
             for (let i = 1; i * 10 < this.$store.getters.getList.length; i++) {
                 if (!pages[i]) {
                     this.$store.commit('addPages', i + 1)
@@ -56,7 +55,6 @@ export default {
 
     },
     mounted() {
-        console.log(Array.from(document.querySelectorAll('.page')));
         return document.querySelectorAll('.page').forEach((item) => { if (item.textContent == document.querySelectorAll('.page').length) { item.classList.add('active') } });
     }
 }
@@ -87,6 +85,8 @@ a {
 }
 </style>
   
+
+
 
 
 

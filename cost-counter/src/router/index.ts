@@ -31,6 +31,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/FoodView.vue')
   },
   {
+    path: '/redact',
+    name: 'RedactView',
+    component: () => import('../views/RedactVue.vue')
+  },
+  {
     path: '*',
     name: 'ErrView',
     component: () => import('../views/ErrView.vue')

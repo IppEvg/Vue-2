@@ -2,12 +2,14 @@
     <div class="box_left_col">
         <div class="box-grower">
             <div class="items">
-                <div class="item" v-for="item, index of showPeriod" v-bind:key="index">
+                <div class="item" v-for="item, index of showPeriod" v-bind:key="item.index">
                     <div class="item_col">{{ item.id }}</div>
                     <div class="item_col">{{ item.data }}</div>
                     <div class="item_col"> {{ item.title }}</div>
                     <div class="item_col">{{ item.prise }}</div>
-                    <div class="item_col menu"> &#9776;</div>
+                    <div class="item_col menu" v-on:click="$modal.show(item)"> &#9776;
+                        <ModalWindow v-bind:item="item" v-bind:id="item.id"></ModalWindow>
+                    </div>
                 </div>
             </div>
             <div class="pagination">
@@ -20,14 +22,15 @@
   
 <script>
 import paginationList from './pagination-list.vue';
+import ModalWindow from './Modal.vue';
 export default {
     name: 'costList',
     components: {
-        paginationList
+        paginationList, ModalWindow
     },
     data() {
         return {
-            str: "1"
+            str: "1",
         }
     },
     methods: {
@@ -94,5 +97,13 @@ export default {
 
 .menu {
     cursor: pointer;
+    position: relative;
+}
+
+.modal {
+    position: absolute;
+    right: -1px;
+    top: 20px;
+    z-index: 2;
 }
 </style>
