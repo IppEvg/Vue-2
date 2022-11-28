@@ -2,13 +2,13 @@
     <div class="box_left_col">
         <div class="box-grower">
             <div class="items">
-                <div class="item" v-for="item, index of showPeriod" v-bind:key="item.index">
+                <div class="item" v-for="item, index of showPeriod" v-bind:key="index">
                     <div class="item_col">{{ item.id }}</div>
                     <div class="item_col">{{ item.data }}</div>
                     <div class="item_col"> {{ item.title }}</div>
                     <div class="item_col">{{ item.prise }}</div>
-                    <div class="item_col menu" v-on:click="$modal.show(item)"> &#9776;
-                        <ModalWindow v-bind:item="item" v-bind:id="item.id"></ModalWindow>
+                    <div class="item_col menu" v-on:click="$modal.show(item.id)"> &#9776;
+                        <ModalWindow v-bind:item="item" v-bind:idx="index"></ModalWindow>
                     </div>
                 </div>
             </div>

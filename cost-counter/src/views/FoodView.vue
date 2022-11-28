@@ -28,6 +28,11 @@ export default {
     },
     computed: {
         idComp() {
+            for (let i = 1; i < this.$store.getters.getList.length; i++) {
+                if (!this.$store.getters.getList.find(item => item.id == i)) {
+                    return i;
+                }
+            }
             return this.$store.getters.getList.length + 1;
         },
         dataComp() {

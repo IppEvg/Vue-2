@@ -4,9 +4,10 @@
             <div class="wrap" v-if="isShow">
                 <div calss="buttons">
                     <div class="square"></div>
-                    <router-link tag="button" to="/redact" class="buttons_button" :item="item" :idx="idx">
+                    <router-link tag="button" to="/redact" class="buttons_button" :idx="idx">
                         &#9998; &emsp;
                         Redact </router-link>
+                    <router-view />
                     <button class="buttons_button" @click="onDelete"> &#10008; &emsp; Delete </button>
                 </div>
             </div>
@@ -19,27 +20,27 @@ export default {
     name: 'ModalWindow',
     data() {
         return {
-            isShow: false
+            isShow: false,
+            idx: null
         }
     },
     props: {
         item: Object,
-        idx: Number
     },
     methods: {
         show(item) {
-            if (this.item == item) {
+            if (this.item.id == item) {
+                this.idx = this.$store.getters.getList.findIndex(el => el.id == item);
                 this.isShow = !this.isShow;
             }
         },
         onDelete() {
             this.$store.commit('delStr', this.idx);
-            this.$store.getters.getPaymentsList;
+            this.$store.getters.getList;
         },
     },
     mounted() {
         this.$modal.EventBus.$on('show', this.show);
-        console.log(this.item);
     }
 }
 </script>

@@ -23,9 +23,10 @@ export default new Vuex.Store({
     hideShowAdder(state, payload) { state.showAdder = payload },
     showShowAdder(state, payload) { state.showAdder = payload },
     addPages(state, payload) { state.pages = [...state.pages, payload] },
-    delStr: (state, idx) => {
-      state.list.splice(idx, 1);
+    delStr(state, idx) {
+      state.list.splice(idx, 1)
     },
+    // redactStr(state: { list: any[] }, idx: any, obj: any) { state.list.splice(idx, 1, obj) },
   },
   actions: {
   },
