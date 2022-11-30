@@ -12,40 +12,39 @@
   
 <script>
 export default {
-    name: 'RedactView',
+    name: 'Redactvue',
     data() {
         return {
-            id: undefined,
-            data: "",
-            title: '',
-            prise: undefined,
+            id: this.$store.getters.getList[this.idx].id,
+            data: this.$store.getters.getList[this.idx].data,
+            title: this.$store.getters.getList[this.idx].title,
+            prise: this.$store.getters.getList[this.idx].prise,
+            redact: this.$store.getters.getList[this.idx].redact
         }
     },
     props: {
-        idx: Number,
+        idx: Number
     },
     methods: {
-        onButton(idx) {
-            let newObj = { id: this.id, data: this.data, title: this.title, prise: this.prise };
-            this.$store.commit('redactStr', idx, newObj);
-            this.$store.getters.getList;
-            this.$router.push({ name: 'Home' })
-        },
+        onButton() {
+            let idx = this.idx;
+            console.log(this.$store.getters.getList[this.idx]);
+            let newObj = { id: this.id, data: this.data, title: this.title, prise: this.prise, redact: true };
+            this.$store.commit('redactStr', { newObj, idx });
+            console.log(idx);
+        }
     },
-    computed: {
-
-    }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .window {
     background-color: rgba(27, 22, 9, 0.9098039216);
-    width: 30%;
-    height: 105px;
+    width: 130%;
+    height: 125px;
     padding: 10px;
     border-radius: 10px;
     position: absolute;
-    left: 0;
+    left: -260%;
     top: -25vh;
     right: 0;
     bottom: 0;

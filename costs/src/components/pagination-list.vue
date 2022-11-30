@@ -50,12 +50,14 @@ export default {
                     this.$store.commit('addPages', i + 1)
                 }
             }
-            return this.$store.getters.getPages
+            this.$emit('pre', 1);
+            this.$emit('give', document.querySelector('a.page.active'));
+            return this.$store.getters.getPages;
         }
 
     },
     mounted() {
-        return document.querySelectorAll('.page').forEach((item) => { if (item.textContent == document.querySelectorAll('.page').length) { item.classList.add('active') } });
+        document.querySelectorAll('.page').forEach((item) => { if (item.textContent == document.querySelectorAll('.page').length) { item.classList.add('active') } });
     }
 }
 </script>
@@ -85,6 +87,18 @@ a {
 }
 </style>
   
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

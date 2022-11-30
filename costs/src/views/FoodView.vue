@@ -21,14 +21,14 @@ export default {
     },
     methods: {
         addCost() {
-            let newObj = { id: this.idComp, data: this.dataComp, title: this.title, prise: this.cost };
+            let newObj = { id: this.idComp, data: this.dataComp, title: this.title, prise: this.cost, redact: false };
             this.$store.commit('addCost', newObj);
             this.$router.push('/');
         },
     },
     computed: {
         idComp() {
-            for (let i = 1; i < this.$store.getters.getList.length; i++) {
+            for (let i = 1; i <= this.$store.getters.getList.length; i++) {
                 if (!this.$store.getters.getList.find(item => item.id == i)) {
                     return i;
                 }
@@ -46,11 +46,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .window {
     background-color: rgba(27, 22, 9, 0.9098039216);
-    width: 30%;
-    height: 105px;
+    width: 25%;
+    height: 115px;
     padding: 10px;
     border-radius: 10px;
     position: absolute;

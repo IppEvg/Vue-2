@@ -7,9 +7,10 @@
                     <div class="item_col">{{ item.data }}</div>
                     <div class="item_col"> {{ item.title }}</div>
                     <div class="item_col">{{ item.prise }}</div>
-                    <div class="item_col menu" v-on:click="$modal.show(item.id)"> &#9776;
-                        <ModalWindow v-bind:item="item" v-bind:idx="index"></ModalWindow>
+                    <div class="item_col menu" v-on:click="$modal.show(item)"> &#9776;
                     </div>
+                    <ModalWindow class="modal" :item="item" :idx="(10 * (+newStr) - 10) + index">
+                    </ModalWindow>
                 </div>
             </div>
             <div class="pagination">
@@ -30,7 +31,7 @@ export default {
     },
     data() {
         return {
-            str: "1",
+            str: 1,
         }
     },
     methods: {
@@ -48,11 +49,11 @@ export default {
     computed: { // 10 платежей на одну страницу
         showPeriod() {
             return this.$store.getters.getList.slice(10 * (+this.str) - 10, 10 * (+this.str));
+        },
+        newStr() {
+            console.log(this.index, +this.str);
+            return this.str
         }
-    },
-    mounted() {
-        let active = document.querySelector('.active');
-        this.str = active.textContent;
     }
 }
 </script>
@@ -82,6 +83,7 @@ export default {
     display: grid;
     grid-template-columns: 0.5fr 1fr 1fr 0.7fr 20px;
     grid-template-rows: 20px;
+    position: relative;
 }
 
 .item_col {

@@ -1,13 +1,16 @@
 <template>
     <div class="modal">
         <transition name="modalTransition">
-            <div class="wrap" v-if="isShow">
-                <div calss="buttons">
+            <div class="wrap" v-show="isShow">
+                <div calss="buttons" style="display: flex;
+    flex-direction: column;
+    align-items: end;">
+                    <button @click="$modal.hide(item)" class="closer">&#10006</button>
                     <div class="square"></div>
-                    <router-link tag="button" to="/redact" class="buttons_button" :idx="idx">
+                    <button @click="changeRedact" class="buttons_button">
                         &#9998; &emsp;
-                        Redact </router-link>
-                    <router-view />
+                        Redact </button>
+                    <Redactvue v-show="this.$store.getters.getRedact" :idx="idx" />
                     <button class="buttons_button" @click="onDelete"> &#10008; &emsp; Delete </button>
                 </div>
             </div>
@@ -16,31 +19,48 @@
 </template>
   
 <script>
+import Redactvue from "./Redact-vue.vue";
 export default {
     name: 'ModalWindow',
     data() {
         return {
             isShow: false,
-            idx: null
         }
+    },
+    components: {
+        Redactvue
     },
     props: {
         item: Object,
+        idx: Number
     },
     methods: {
         show(item) {
-            if (this.item.id == item) {
-                this.idx = this.$store.getters.getList.findIndex(el => el.id == item);
-                this.isShow = !this.isShow;
+            if (this.item === item) {
+                this.isShow = true;
+                this.item = this.$store.getters.getList[this.idx];
+            }
+        },
+        hide(item) {
+            if (this.item == item) {
+                this.isShow = false;
             }
         },
         onDelete() {
             this.$store.commit('delStr', this.idx);
             this.$store.getters.getList;
         },
+        changeRedact() {
+            this.$store.commit('redact', this.idx);
+        }
+
+    },
+    computed: {
+
     },
     mounted() {
         this.$modal.EventBus.$on('show', this.show);
+        this.$modal.EventBus.$on('hide', this.hide);
     }
 }
 </script>
@@ -56,7 +76,13 @@ button {
     position: relative;
     padding: 2px;
     border-radius: 3px;
-    background-color: #24476B
+    background-color: #24476B;
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+    }
 }
 
 .square {
@@ -70,9 +96,16 @@ button {
     background-color: #24476B;
 }
 
-.buttons {
-    display: flex;
-    flex-direction: column;
+
+
+.closer {
+    width: 15px;
+    height: 10px;
+    padding: 1px;
+    font-size: 5px;
+    background-color: #ccc;
+    border: 1px solid rgb(163, 157, 157);
+    margin-bottom: 2px;
 }
 
 .modalTransition-enter-active {

@@ -15,10 +15,10 @@ export default {
     name: 'RedactView',
     data() {
         return {
-            id: '',
+            id: undefined,
             data: '',
             title: '',
-            prise: '',
+            prise: undefined,
         }
     },
     props: {
@@ -26,10 +26,9 @@ export default {
     },
     methods: {
         onButton(idx) {
-            idx = this.idx;
-            console.log(idx);
             let newObj = { id: this.id, data: this.data, title: this.title, prise: this.prise };
-            this.$store.commit('redactStr', idx);
+            this.$store.commit('redactStr', idx, newObj);
+            this.$store.getters.getList;
             this.$router.push({ name: 'Home' })
         },
     },
