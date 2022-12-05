@@ -1,34 +1,43 @@
 <template>
-    <div id="chart">
-        <div type="pie" width="380" :options="chartOptions"></div>
+    <div id="chart" class="chartBox mt-5">
+        <apexchart type="pie" :options="options" :series="series"></apexchart>
     </div>
 </template>
 <script>
 
 export default {
-    name: 'apexchart',
+    name: 'apex',
     data: function () {
         return {
-            chartOptions: {
-                chart: {
-                    width: 380,
-                    type: 'pie',
-                },
-                labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
-            }
+            options: {
+                labels: ['Transport', 'Food', 'Health', 'Entertainment'],
+            },
+        }
+    },
+    computed: {
+        series() {
+            return [this.$store.getters.getTotalPriseTransport, this.$store.getters.getTotalPriseFood, this.$store.getters.getTotalPriseHealth, this.$store.getters.getTotalPriseEntertainment]
         }
     }
-}
+};
 
 </script>
+
+<style land="scss" >
+.chartBox {
+    width: 250px;
+    height: 250px;
+}
+
+foreignObject {
+    height: 150px;
+}
+
+svg {
+    height: 150px;
+}
+
+g {
+    width: 100px;
+}
+</style>

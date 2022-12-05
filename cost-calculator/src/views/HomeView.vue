@@ -14,7 +14,7 @@
             <h4 class="mt-2"> Total: {{ this.$store.getters.getTotalPrise }}</h4>
           </div>
           <div id="chart">
-            <apexChartView></apexChartView>
+            <apex></apex>
           </div>
         </div>
 
@@ -26,11 +26,11 @@
 <script>
 import costList from "../components/cost-list.vue";
 import adderCost from "../components/adder-cost.vue";
-import apexChartView from "../components/apexchart.vue";
+import apex from "../components/apexchart.vue";
 export default {
   name: 'HomeView',
   components: {
-    costList, adderCost, apexChartView
+    costList, adderCost, apex
   },
   methods: {
     changeShowAdder() {
